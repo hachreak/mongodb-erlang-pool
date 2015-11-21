@@ -2,7 +2,7 @@
 
 %% Include
 -include_lib("eunit/include/eunit.hrl").
--include("deps/mongodb/include/mongo_protocol.hrl").
+-include_lib("mongodb/include/mongo_protocol.hrl").
 
 %% API
 -export([start/0, stop/0]).
@@ -129,7 +129,7 @@ count(PoolName, Coll, Selector) ->
 %@doc Count selected documents up to given max number; 0 means no max.
 %     Ie. stops counting when max is reached to save processing time.
 -spec count(term(), collection(), selector(), integer()) -> integer().
-count(PoolName, Coll, Selector, Limit) -> 
+count(PoolName, Coll, Selector, Limit) ->
   do(PoolName, fun(Connection) ->
                             mongo:count(Connection, Coll, Selector, Limit)
                         end).
@@ -141,7 +141,7 @@ count(PoolName, Coll, Selector, Limit) ->
 %%      unique   :: boolean()
 %%      dropDups :: boolean()
 -spec ensure_index(term(), collection(), bson:document()) -> ok.
-ensure_index(PoolName, Coll, IndexSpec) ->  
+ensure_index(PoolName, Coll, IndexSpec) ->
   do(PoolName, fun(Connection) ->
                             mongo:ensure_index(Connection, Coll, IndexSpec)
                         end).
